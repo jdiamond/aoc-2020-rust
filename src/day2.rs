@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::io::{self, BufRead};
 
 pub fn part1() {
@@ -6,7 +7,7 @@ pub fn part1() {
     let records = stdin.lock().lines().map(|line| parse_line(&line.unwrap()));
 
     for record in records {
-        println!("{:?}: {}", record, record.0.validate(record.1));
+        println!("{:?}: {}", record, record.0.validate(&record.1));
     }
 }
 
@@ -23,14 +24,21 @@ impl PasswordPolicy {
     }
 }
 
-fn parse_line<'a>(_line: &str) -> (PasswordPolicy, &'a str) {
+fn parse_line(line: &str) -> (PasswordPolicy, String) {
+    // println!("{}", line);
+
+    let re = Regex::new(r"(\d+)-(\d+) (.): (.+)").unwrap();
+    let caps = re.captures(line).unwrap();
+
+    // println!("{:?}", caps);
+
     (
         PasswordPolicy {
-            lowest: 0,
-            highest: 0,
-            letter: 'a',
+            lowest: caps.get(1).unwrap().as_str().parse::<usize>().unwrap(),
+            highest: caps.get(2).unwrap().as_str().parse::<usize>().unwrap(),
+            letter: caps.get(3).unwrap().as_str().chars().nth(0).unwrap(),
         },
-        "abc",
+        caps.get(4).unwrap().as_str().to_string(),
     )
 }
 

@@ -1,22 +1,26 @@
+type TreeMap = Vec<Vec<bool>>;
+
 pub fn part1(input: &str) -> String {
-    run(input)
+    let map = parse_input(input);
+    let hit = run(&map, 3, 1);
+    hit.to_string()
 }
 
 pub fn part2(input: &str) -> String {
-    run(input)
+    let map = parse_input(input);
+    let answer =
+        run(&map, 1, 1) * run(&map, 3, 1) * run(&map, 5, 1) * run(&map, 7, 1) * run(&map, 1, 2);
+    answer.to_string()
 }
 
-fn run(input: &str) -> String {
-    let map = input
+fn parse_input(input: &str) -> Vec<Vec<bool>> {
+    input
         .lines()
         .map(|line| line.chars().map(|c| c == '#').collect::<Vec<bool>>())
-        .collect::<Vec<Vec<bool>>>();
+        .collect::<TreeMap>()
+}
 
-    // dbg!(map);
-
-    let right = 3;
-    let down = 1;
-
+fn run(map: &TreeMap, right: usize, down: usize) -> usize {
     let mut x = 0;
     let mut y = 0;
 
@@ -37,7 +41,7 @@ fn run(input: &str) -> String {
         }
     }
 
-    hit.to_string()
+    hit
 }
 
 #[cfg(test)]
@@ -58,17 +62,17 @@ mod tests {
         assert_eq!(part1(&input), "247");
     }
 
-    // #[test]
-    // fn part2_example_works() {
-    //     let input = std::fs::read_to_string("day3-example.txt").unwrap();
+    #[test]
+    fn part2_example_works() {
+        let input = std::fs::read_to_string("day3-example.txt").unwrap();
 
-    //     assert_eq!(part2(&input), "");
-    // }
+        assert_eq!(part2(&input), "336");
+    }
 
-    // #[test]
-    // fn part2_input_works() {
-    //     let input = std::fs::read_to_string("day3-input.txt").unwrap();
+    #[test]
+    fn part2_input_works() {
+        let input = std::fs::read_to_string("day3-input.txt").unwrap();
 
-    //     assert_eq!(part2(&input), "");
-    // }
+        assert_eq!(part2(&input), "2983070376");
+    }
 }

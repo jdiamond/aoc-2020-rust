@@ -1,6 +1,5 @@
 use itertools::Itertools;
 use std::io::{self, BufRead};
-use std::str::FromStr;
 
 pub fn part1() {
     run(2);
@@ -16,7 +15,7 @@ fn run(k: usize) {
     let results = stdin
         .lock()
         .lines()
-        .map(|line| u32::from_str(&line.unwrap()).unwrap())
+        .map(|line| line.unwrap().parse::<u32>().unwrap())
         .combinations(k)
         .filter(|combo| combo.iter().sum::<u32>() == 2020);
 

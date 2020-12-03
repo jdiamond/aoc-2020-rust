@@ -1,21 +1,57 @@
 use itertools::Itertools;
 
-pub fn part1(input: &str) {
-    run(input, 2);
+pub fn part1(input: &str) -> String {
+    run(input, 2)
 }
 
-pub fn part2(input: &str) {
-    run(input, 3);
+pub fn part2(input: &str) -> String {
+    run(input, 3)
 }
 
-fn run(input: &str, k: usize) {
-    let results = input
+fn run(input: &str, k: usize) -> String {
+    let result = input
         .lines()
         .map(|line| line.parse::<u32>().unwrap())
         .combinations(k)
-        .filter(|combo| combo.iter().sum::<u32>() == 2020);
+        .find(|combo| combo.iter().sum::<u32>() == 2020)
+        .unwrap();
 
-    for result in results {
-        println!("{:?}: {}", result, result.iter().product::<u32>());
+    let product = result.iter().product::<u32>();
+
+    println!("{:?}: {}", result, product);
+
+    product.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn part1_example_works() {
+        let input = std::fs::read_to_string("day1-example.txt").unwrap();
+
+        assert_eq!(part1(&input), "514579");
+    }
+
+    #[test]
+    fn part1_input_works() {
+        let input = std::fs::read_to_string("day1-input.txt").unwrap();
+
+        assert_eq!(part1(&input), "1013211");
+    }
+
+    #[test]
+    fn part2_example_works() {
+        let input = std::fs::read_to_string("day1-example.txt").unwrap();
+
+        assert_eq!(part2(&input), "241861950");
+    }
+
+    #[test]
+    fn part2_input_works() {
+        let input = std::fs::read_to_string("day1-input.txt").unwrap();
+
+        assert_eq!(part2(&input), "13891280");
     }
 }

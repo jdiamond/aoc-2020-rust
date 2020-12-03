@@ -4,7 +4,7 @@ use std::io::{self, Read};
 mod day1;
 mod day2;
 
-const FNS: [[fn(&str); 2]; 2] = [[day1::part1, day1::part2], [day2::part1, day2::part2]];
+const FNS: [[fn(&str) -> String; 2]; 2] = [[day1::part1, day1::part2], [day2::part1, day2::part2]];
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -23,6 +23,8 @@ fn main() {
 
         let found = FNS[day - 1][part - 1];
 
-        found(&input);
+        let output = found(&input);
+
+        println!("{}", output);
     }
 }

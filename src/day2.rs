@@ -1,16 +1,16 @@
 use regex::Regex;
 
-pub fn part1(input: &str) {
-    run(input, validate1);
+pub fn part1(input: &str) -> String {
+    run(input, validate1)
 }
 
-pub fn part2(input: &str) {
-    run(input, validate2);
+pub fn part2(input: &str) -> String {
+    run(input, validate2)
 }
 
 type Validator = fn(policy: &PasswordPolicy, password: &str) -> bool;
 
-fn run(input: &str, validate: Validator) {
+fn run(input: &str, validate: Validator) -> String {
     let records = input.lines().map(|line| parse_line(line));
 
     let mut total = 0;
@@ -28,7 +28,9 @@ fn run(input: &str, validate: Validator) {
         // println!("{:?}: {}", record, is_valid);
     }
 
-    println!("there are {} valid passwords out of {} total", valid, total,)
+    println!("there are {} valid passwords out of {} total", valid, total);
+
+    valid.to_string()
 }
 
 #[derive(Debug)]
@@ -102,5 +104,33 @@ mod tests {
             },
             "abcde",
         ));
+    }
+
+    #[test]
+    fn part1_example_works() {
+        let input = std::fs::read_to_string("day2-example.txt").unwrap();
+
+        assert_eq!(part1(&input), "2");
+    }
+
+    #[test]
+    fn part1_input_works() {
+        let input = std::fs::read_to_string("day2-input.txt").unwrap();
+
+        assert_eq!(part1(&input), "556");
+    }
+
+    #[test]
+    fn part2_example_works() {
+        let input = std::fs::read_to_string("day2-example.txt").unwrap();
+
+        assert_eq!(part2(&input), "1");
+    }
+
+    #[test]
+    fn part2_input_works() {
+        let input = std::fs::read_to_string("day2-input.txt").unwrap();
+
+        assert_eq!(part2(&input), "605");
     }
 }

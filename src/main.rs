@@ -1,8 +1,9 @@
 use std::env;
 
 mod day1;
+mod day2;
 
-const FNS: [[fn(); 2]; 1] = [[day1::part1, day1::part2]];
+const FNS: [[fn(); 2]; 2] = [[day1::part1, day1::part2], [day2::part1, day2::part2]];
 
 fn main() {
     let args: Vec<String> = env::args().collect();

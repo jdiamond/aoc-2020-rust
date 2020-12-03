@@ -6,9 +6,22 @@ pub fn part1() {
 
     let records = stdin.lock().lines().map(|line| parse_line(&line.unwrap()));
 
+    let mut total = 0;
+    let mut valid = 0;
+
     for record in records {
-        println!("{:?}: {}", record, record.0.validate(&record.1));
+        total += 1;
+
+        let is_valid = record.0.validate(&record.1);
+
+        if is_valid {
+            valid += 1;
+        }
+
+        // println!("{:?}: {}", record, is_valid);
     }
+
+    println!("there are {} valid passwords out of {} total", valid, total,)
 }
 
 #[derive(Debug)]
@@ -19,8 +32,16 @@ struct PasswordPolicy {
 }
 
 impl PasswordPolicy {
-    fn validate(&self, _password: &str) -> bool {
-        false
+    fn validate(&self, password: &str) -> bool {
+        let count = password.chars().fold(0, |count, char| {
+            if char == self.letter {
+                count + 1
+            } else {
+                count
+            }
+        });
+
+        count >= self.lowest && count <= self.highest
     }
 }
 

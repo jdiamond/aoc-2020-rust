@@ -1,21 +1,17 @@
 use itertools::Itertools;
-use std::io::{self, BufRead};
 
-pub fn part1() {
-    run(2);
+pub fn part1(input: &str) {
+    run(input, 2);
 }
 
-pub fn part2() {
-    run(3);
+pub fn part2(input: &str) {
+    run(input, 3);
 }
 
-fn run(k: usize) {
-    let stdin = io::stdin();
-
-    let results = stdin
-        .lock()
+fn run(input: &str, k: usize) {
+    let results = input
         .lines()
-        .map(|line| line.unwrap().parse::<u32>().unwrap())
+        .map(|line| line.parse::<u32>().unwrap())
         .combinations(k)
         .filter(|combo| combo.iter().sum::<u32>() == 2020);
 

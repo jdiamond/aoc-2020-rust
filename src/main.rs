@@ -1,9 +1,10 @@
 use std::env;
+use std::io::{self, Read};
 
 mod day1;
 mod day2;
 
-const FNS: [[fn(); 2]; 2] = [[day1::part1, day1::part2], [day2::part1, day2::part2]];
+const FNS: [[fn(&str); 2]; 2] = [[day1::part1, day1::part2], [day2::part1, day2::part2]];
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -16,8 +17,12 @@ fn main() {
 
         println!("running day {} part {}", day, part);
 
+        let mut input = String::new();
+
+        io::stdin().read_to_string(&mut input).unwrap();
+
         let found = FNS[day - 1][part - 1];
 
-        found();
+        found(&input);
     }
 }

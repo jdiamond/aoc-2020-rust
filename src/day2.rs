@@ -1,20 +1,17 @@
 use regex::Regex;
-use std::io::{self, BufRead};
 
-pub fn part1() {
-    run(validate1);
+pub fn part1(input: &str) {
+    run(input, validate1);
 }
 
-pub fn part2() {
-    run(validate2);
+pub fn part2(input: &str) {
+    run(input, validate2);
 }
 
 type Validator = fn(policy: &PasswordPolicy, password: &str) -> bool;
 
-fn run(validate: Validator) {
-    let stdin = io::stdin();
-
-    let records = stdin.lock().lines().map(|line| parse_line(&line.unwrap()));
+fn run(input: &str, validate: Validator) {
+    let records = input.lines().map(|line| parse_line(line));
 
     let mut total = 0;
     let mut valid = 0;

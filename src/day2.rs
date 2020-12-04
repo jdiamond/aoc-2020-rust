@@ -81,6 +81,7 @@ fn validate2(policy: &PasswordPolicy, password: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::test_helpers::load_input;
 
     #[test]
     fn validate1_works() {
@@ -108,28 +109,28 @@ mod tests {
 
     #[test]
     fn part1_example_works() {
-        let input = std::fs::read_to_string("day2-example.txt").unwrap();
+        let input = load_input("day2-example.txt");
 
         assert_eq!(part1(&input), "2");
     }
 
     #[test]
     fn part1_input_works() {
-        let input = std::fs::read_to_string("day2-input.txt").unwrap();
+        let input = load_input("day2-puzzle.txt");
 
         assert_eq!(part1(&input), "556");
     }
 
     #[test]
     fn part2_example_works() {
-        let input = std::fs::read_to_string("day2-example.txt").unwrap();
+        let input = load_input("day2-example.txt");
 
         assert_eq!(part2(&input), "1");
     }
 
     #[test]
     fn part2_input_works() {
-        let input = std::fs::read_to_string("day2-input.txt").unwrap();
+        let input = load_input("day2-puzzle.txt");
 
         assert_eq!(part2(&input), "605");
     }

@@ -1,6 +1,8 @@
 use std::env;
 use std::io::{self, Read};
 
+mod test_helpers;
+
 mod day1;
 mod day2;
 mod day3;

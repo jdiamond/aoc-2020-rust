@@ -47,31 +47,32 @@ fn run(map: &TreeMap, right: usize, down: usize) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::test_helpers::load_input;
 
     #[test]
     fn part1_example_works() {
-        let input = std::fs::read_to_string("day3-example.txt").unwrap();
+        let input = load_input("day3-example.txt");
 
         assert_eq!(part1(&input), "7");
     }
 
     #[test]
     fn part1_input_works() {
-        let input = std::fs::read_to_string("day3-input.txt").unwrap();
+        let input = load_input("day3-puzzle.txt");
 
         assert_eq!(part1(&input), "247");
     }
 
     #[test]
     fn part2_example_works() {
-        let input = std::fs::read_to_string("day3-example.txt").unwrap();
+        let input = load_input("day3-example.txt");
 
         assert_eq!(part2(&input), "336");
     }
 
     #[test]
     fn part2_input_works() {
-        let input = std::fs::read_to_string("day3-input.txt").unwrap();
+        let input = load_input("day3-puzzle.txt");
 
         assert_eq!(part2(&input), "2983070376");
     }

@@ -26,31 +26,32 @@ fn run(input: &str, k: usize) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::test_helpers::load_input;
 
     #[test]
     fn part1_example_works() {
-        let input = std::fs::read_to_string("day1-example.txt").unwrap();
+        let input = load_input("day1-example.txt");
 
         assert_eq!(part1(&input), "514579");
     }
 
     #[test]
     fn part1_input_works() {
-        let input = std::fs::read_to_string("day1-input.txt").unwrap();
+        let input = load_input("day1-puzzle.txt");
 
         assert_eq!(part1(&input), "1013211");
     }
 
     #[test]
     fn part2_example_works() {
-        let input = std::fs::read_to_string("day1-example.txt").unwrap();
+        let input = load_input("day1-example.txt");
 
         assert_eq!(part2(&input), "241861950");
     }
 
     #[test]
     fn part2_input_works() {
-        let input = std::fs::read_to_string("day1-input.txt").unwrap();
+        let input = load_input("day1-puzzle.txt");
 
         assert_eq!(part2(&input), "13891280");
     }

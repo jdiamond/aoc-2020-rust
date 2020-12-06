@@ -1,19 +1,11 @@
+use itertools::Itertools;
 use std::collections::HashSet;
 
 pub fn part1(input: &str) -> String {
     let votes = input
         .split("\n\n")
-        .map(|group| {
-            group
-                .lines()
-                .flat_map(|line| line.chars())
-                .collect::<HashSet<_>>()
-        })
-        .collect::<Vec<_>>();
-
-    // dbg!(&votes);
-
-    let votes = votes.iter().fold(0, |sum, group| sum + group.len());
+        .map(|group| group.lines().flat_map(|line| line.chars()).unique().count())
+        .sum::<usize>();
 
     String::from(votes.to_string())
 }
@@ -22,20 +14,14 @@ pub fn part2(input: &str) -> String {
     let votes = input
         .split("\n\n")
         .map(|group| {
-            let all = String::from("abcdefghijklmnopqrstuvwxzy")
-                .chars()
-                .collect::<HashSet<_>>();
-
+            let all = ('a'..='z').collect::<HashSet<_>>();
             group
                 .lines()
                 .map(|line| line.chars().collect::<HashSet<_>>())
                 .fold(all, |acc, cur| acc.intersection(&cur).map(|c| *c).collect())
         })
-        .collect::<Vec<_>>();
-
-    // dbg!(&votes);
-
-    let votes = votes.iter().fold(0, |sum, group| sum + group.len());
+        .map(|group| group.len())
+        .sum::<usize>();
 
     String::from(votes.to_string())
 }

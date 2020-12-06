@@ -11,16 +11,14 @@ pub fn part1(input: &str) -> String {
 }
 
 pub fn part2(input: &str) -> String {
-    let all = ('a'..='z').collect::<HashSet<_>>();
     let votes = input
         .split("\n\n")
         .map(|group| {
             group
                 .lines()
                 .map(|line| line.chars().collect::<HashSet<_>>())
-                .fold(all.clone(), |acc, cur| {
-                    acc.intersection(&cur).copied().collect()
-                })
+                .fold1(|acc, cur| acc.intersection(&cur).copied().collect())
+                .unwrap()
         })
         .map(|group| group.len())
         .sum::<usize>();

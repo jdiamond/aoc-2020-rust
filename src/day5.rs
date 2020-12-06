@@ -1,40 +1,37 @@
 pub fn part1(input: &str) -> String {
-    input
-        .lines()
-        .map(|line| decode(line))
-        .max()
-        .unwrap()
-        .to_string()
+    input.lines().map(decode).max().unwrap().to_string()
 }
 
 pub fn part2(input: &str) -> String {
-    let mut seats = input.lines().map(|line| decode(line)).collect::<Vec<_>>();
+    let mut seats = input.lines().map(decode).collect::<Vec<_>>();
 
     seats.sort();
 
-    let mut last = seats[0] - 1;
-
-    for seat in seats {
-        if seat - 1 > last {
-            return (seat - 1).to_string();
-        }
-        last = seat;
-    }
-
-    panic!()
+    find_first_missing(seats).unwrap().to_string()
 }
 
 fn decode(seat: &str) -> usize {
     let row = &seat[0..7].replace("F", "0").replace("B", "1");
-    // dbg!(row);
     let row = usize::from_str_radix(row, 2).unwrap();
-    // dbg!(row);
+
     let col = &seat[7..].replace("L", "0").replace("R", "1");
-    // dbg!(col);
     let col = usize::from_str_radix(col, 2).unwrap();
-    // dbg!(col);
 
     row * 8 + col
+}
+
+fn find_first_missing(seats: Vec<usize>) -> Option<usize> {
+    let mut last = seats[0] - 1;
+
+    for seat in seats {
+        if seat - 1 > last {
+            return Some(seat - 1);
+        }
+
+        last = seat;
+    }
+
+    None
 }
 
 #[cfg(test)]

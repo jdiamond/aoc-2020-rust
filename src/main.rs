@@ -13,8 +13,9 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
-const FNS: [[fn(&str) -> String; 2]; 7] = [
+const FNS: [[fn(&str) -> String; 2]; 8] = [
     [day1::part1, day1::part2],
     [day2::part1, day2::part2],
     [day3::part1, day3::part2],
@@ -22,6 +23,7 @@ const FNS: [[fn(&str) -> String; 2]; 7] = [
     [day5::part1, day5::part2],
     [day6::part1, day6::part2],
     [day7::part1, day7::part2],
+    [day8::part1, day8::part2],
 ];
 
 fn main() {
